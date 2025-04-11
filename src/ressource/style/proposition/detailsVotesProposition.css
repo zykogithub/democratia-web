@@ -1,0 +1,85 @@
+.vote-summary {
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 25px;
+    background: linear-gradient(to bottom, #ffffff, #f8f9fc);
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.vote-summary:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.vote-summary .header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.vote-summary .header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.vote-summary .content, .vote-summary .statistics {
+    margin-bottom: 25px;
+}
+
+.vote-summary p {
+    margin: 12px 0;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.vote-summary p strong {
+    font-weight: bold;
+    color: #444;
+}
+
+.vote-summary .statistics h3 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    color: #5a5a5a;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.vote-summary .chart-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.vote-summary canvas {
+    border-radius: 10px;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vote-summary {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .vote-summary .header h2 {
+        font-size: 22px;
+    }
+
+    .vote-summary p {
+        font-size: 15px;
+    }
+
+    .vote-summary .statistics h3 {
+        font-size: 18px;
+    }
+}

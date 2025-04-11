@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'sourcesanspro';
+    font-style: normal;
+    font-weight: bold;
+    font-display: block;
+    src: url(ressources/source-code-pro-v23-latin-900.woff2) format('woff2');
+}
+/* baskervville-regular - latin */
+@font-face {
+    font-display: swap; 
+    font-family: 'Baskervville';
+    font-style: normal;
+    font-weight: 400;
+    src: url(ressources/baskervville-v16-latin-regular.woff2) format('woff2'); 
+  }

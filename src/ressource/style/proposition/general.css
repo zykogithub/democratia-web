@@ -1,0 +1,16 @@
+/* Général */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+button:focus {
+    outline: none;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}

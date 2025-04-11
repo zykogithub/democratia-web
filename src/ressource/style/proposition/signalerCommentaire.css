@@ -1,0 +1,87 @@
+.signalement {
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 70%;
+    margin: 20px auto;
+}
+
+.entete-signalement {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.titre-signalement {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+}
+
+.question-signalement {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+}
+
+.titre-proposition {
+    font-weight: bold;
+    color: #800000;
+}
+
+.formulaire-signalement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+.formulaire-signalement form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 80%;
+}
+
+.textarea-formulaire {
+    width: 100%;
+    height: 500px;
+    padding: 15px;
+    border: 2px solid #ff0000;
+    border-radius: 8px;
+    background-color: #ffe5e5;
+    font-size: 1em;
+    color: #333;
+    resize: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+
+.textarea-formulaire:focus {
+    border-color: #cc0000;
+    background-color: #ffcccc;
+    outline: none;
+}
+
+.bouton-valider {
+    align-self: center;
+    width: 100%;
+    max-width: 220px;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #800000;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bouton-valider:hover {
+    background-color: #a00000;
+    transform: scale(1.05);
+}

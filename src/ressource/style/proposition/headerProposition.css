@@ -1,0 +1,59 @@
+/* Header */
+header {
+    position: relative;
+    background-color: white;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 10px;
+}
+
+.section-retour {
+    position: absolute;
+    top: 10%;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+/* Bouton Retour */
+.bouton-retour { 
+    background-color: #800000;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bouton-retour:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo Institution */
+.section-institution {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-institution img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    border-radius: 50%; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}

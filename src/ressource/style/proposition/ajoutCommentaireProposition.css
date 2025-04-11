@@ -1,0 +1,52 @@
+.ajouter-commentaire {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ajouter-commentaire h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #800000;
+    font-weight: bold;
+}
+
+.ajouter-commentaire textarea {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 15px;
+    padding: 15px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.ajouter-commentaire textarea:focus {
+    outline: none;
+    border-color: #800000;
+}
+
+.ajouter-commentaire button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #800000;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.ajouter-commentaire button:hover {
+    background-color: #420101;
+    transform: scale(1.02);
+}

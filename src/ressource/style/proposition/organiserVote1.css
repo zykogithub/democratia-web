@@ -1,0 +1,72 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-organiser-vote {
+    width: 100%;
+    max-width: 800px; /* Largeur maximale */
+    margin: 0 auto; /* Centrer horizontalement */
+    padding: 30px; /* Espace intérieur */
+    background-color: #f9f9f9; /* Couleur de fond */
+    border-radius: 10px; /* Arrondi des coins */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre légère */
+    font-family: Arial, sans-serif; /* Police lisible */
+}
+
+.form-organiser-vote h2 {
+    text-align: center;
+    margin-bottom: 20px; /* Espacement avec les sections suivantes */
+    font-size: 24px; /* Taille de texte légèrement agrandie */
+    color: #333; /* Couleur de texte sobre */
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%; /* Prend toute la largeur */
+    padding: 12px;
+    margin-bottom: 20px; /* Espacement entre les champs */
+    border: 1px solid #ddd;
+    border-radius: 6px; /* Coins légèrement arrondis */
+    font-size: 16px;
+    box-sizing: border-box; /* Inclut les bordures et padding dans la largeur */
+}
+
+#type_scrutin div {
+    display: flex; /* Aligne les boutons radio avec les labels */
+    align-items: center;
+    margin-bottom: 10px; /* Espacement entre les options */
+}
+
+input[type="radio"] {
+    margin-right: 10px; /* Espace entre le bouton radio et son label */
+    accent-color: #800000; /* Couleur personnalisée des boutons radio */
+}
+
+button {
+    display: block;
+    width: 100%; /* Prend toute la largeur */
+    padding: 15px; /* Confort pour cliquer */
+    background-color: #800000; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 8px; /* Coins arrondis */
+    font-size: 18px; /* Texte légèrement agrandi */
+    cursor: pointer; /* Curseur pointer pour indiquer qu'il est cliquable */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animation douce */
+}
+
+button:hover {
+    background-color: #a00000; /* Couleur légèrement plus sombre au survol */
+    transform: scale(1.02); /* Légère animation au survol */
+}

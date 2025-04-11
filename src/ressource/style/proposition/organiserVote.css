@@ -1,0 +1,63 @@
+.form-organiser-vote {
+    max-width: 800px; /* Augmentation de la largeur */
+    margin: 30px auto; /* Plus d'espace autour */
+    padding: 30px; /* Augmentation de l'espace intérieur */
+    background-color: #f9f9f9;
+    border-radius: 10px; /* Arrondi légèrement accentué */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+    font-family: Arial, sans-serif;
+}
+
+.form-organiser-vote h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Texte légèrement agrandi */
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-top: 15px; /* Plus d'espace entre les sections */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px; /* Plus d'espace interne */
+    margin-bottom: 20px; /* Plus d'espace entre les champs */
+    border: 1px solid #ddd;
+    border-radius: 6px; /* Arrondi plus doux */
+    font-size: 16px; /* Texte légèrement agrandi */
+}
+
+#type_scrutin div {
+    display: flex; /* Alignement en ligne des boutons radio et labels */
+    align-items: center;
+    margin-bottom: 10px; /* Espace entre les options */
+}
+
+input[type="radio"] {
+    margin-right: 10px; /* Espace entre le bouton radio et le label */
+    accent-color: #800000; /* Couleur personnalisée pour le bouton radio */
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 15px; /* Plus de confort pour cliquer */
+    background-color: #800000;
+    color: white;
+    border: none;
+    border-radius: 8px; /* Arrondi plus prononcé */
+    font-size: 18px; /* Texte plus grand */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #a00000;
+    transform: scale(1.02); /* Légère animation au survol */
+}
