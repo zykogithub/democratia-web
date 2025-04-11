@@ -11,8 +11,8 @@
     </head>
     <body>";
         $previousPage="controleurListeGroupes.php?idInternaute=".$idInternaute;
-        require_once($chemin."/src/vue/header.php");
-        require_once($chemin."/src/modele/groupe.php");
+        require_once("/src/vue/header.php");
+        require_once("/src/modele/groupe.php");
         echo "<main>
             <h1 class='title'>
                 Mes groupes

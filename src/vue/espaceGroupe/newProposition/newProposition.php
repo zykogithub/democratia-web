@@ -11,13 +11,13 @@
     </head>
     <body>";
         $previousPage="controleurListePropositions.php?idInternaute=".$idInternaute."&idGroupe=".$idGroupe;
-        require_once($chemin."/src/vue/header.php");
+        require_once("/src/vue/header.php");
         $groupe = Groupe::getGroupeById($idGroupe);
         echo "<main>
             <h1 class='title'>
                 Ajouter une proposition
             </h1>";
-            require_once($chemin."/src/vue/espaceGroupe/newProposition/formulaireProposition.php");
+            require_once("/src/vue/espaceGroupe/newProposition/formulaireProposition.php");
         echo "</main>
     </body>
     </html>";

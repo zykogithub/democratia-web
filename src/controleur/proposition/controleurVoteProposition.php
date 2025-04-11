@@ -1,7 +1,7 @@
 <?php
 // Inclusion des modèles
 require_once '../../modele/propositionDetails.php';
-require_once '../../../API/Api.php';
+require_once '../../../src/utils/ApiClient.php';
 
 // Variables dynamiques
 $page = "controleurVoteProposition.php";
@@ -14,7 +14,7 @@ $choixs = $_GET['choix'] ?? $_POST['choix'] ?? null;
 
 
 // Initialisation des objets
-$api = new Api();
+$api = new ApiClient();
 $proposition = new Proposition($api, (int)$idProposition);
 
 switch ($action) {

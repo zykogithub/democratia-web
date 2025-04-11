@@ -16,8 +16,8 @@
     $messageErreur = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         include "../../../route.php";
-        require_once($chemin."//API//Api.php");
-        include $chemin."//src//controleur//controleurConnexion.php";
+        require_once("//API//ApiClient.php");
+        include "/src//controleur//controleurConnexion.php";
         $messageErreur = $api->getMessaDerreur();
         if(isset($internaute)) {
             $host  = $_SERVER['HTTP_HOST'];

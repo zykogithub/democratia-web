@@ -1,7 +1,7 @@
 <?php
     require_once( "../../../route.php");
-    require_once($chemin."/API/Api.php");
-    require_once($chemin."/API/ActionPossible.php");
+    require_once("/src/utils/ApiClient.php");
+    require_once("/API/ActionPossible.php");
     require_once("../../modele/groupe.php");
     $idInternaute=$_GET["idInternaute"];
     $idGroupe=$_GET["idGroupe"];
@@ -11,9 +11,9 @@
     $fileLink = $directory.'/'.$imageName;
     echo $fileLink;
     if(unlink($fileLink)){
-        $api = new API();
+        $api = new ApiClient();
         $parametres=[$idGroupe];
-        $api->delete($parametres,null,"DELETE FROM groupe WHERE id_groupe = ?");
+        $api->delete($parametres,"DELETE FROM groupe WHERE id_groupe = ?");
     }
     header("Location: ../listeGroupes/controleurListeGroupes.php?idInternaute=".$idInternaute);
     exit();

@@ -25,13 +25,13 @@
     $tableauReponse = [];
     $_COOKIE["idInternaute"] = $_GET["idInternaute"];
     include "../../../route.php";
-    require_once $chemin."/API/Api.php";
+    require_once "/src/utils/ApiClient.php";
 
     if ($_SERVER["REQUEST_METHOD"] == "GET" && $_GET["idInternaute"]){
         $id = intval($_GET["idInternaute"]);
-        $api = new Api();
-        $api->get(array($id), null, "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
-        if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) {
+        $api = new ApiClient();
+        $api->get(array($id),  "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
+        if ($api->getCodDeRetourApi() === 200) {
         $data = $api->getValeurRetourne();
             if (isset($data[0])) {
                 $nom = $data[0]['nom_internaute'];
@@ -48,9 +48,9 @@
         if (isset($_POST['modifier'])) {
             $id = intval($_POST["modifier"]);
             $veutModifier = true;
-            $api = new Api();
-            $api->get(array($id), null, "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
-            if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) {
+            $api = new ApiClient();
+            $api->get(array($id),  "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
+            if ($api->getCodDeRetourApi() === 200) {
             $data = $api->getValeurRetourne();
                 if (isset($data[0])) {
                     $nom = $data[0]['nom_internaute'];
@@ -67,19 +67,19 @@
             $veutSupprimer = true;
         } elseif (isset($_POST['supprimerCompte'])) {
             $id = intval($_POST["supprimerCompte"]);
-            $api = new Api();
-            $api->delete(array($id), null, "DELETE FROM internaute WHERE id_internaute = ?");
-            if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) $aSupprimer = true;
+            $api = new ApiClient();
+            $api->delete(array($id),  "DELETE FROM internaute WHERE id_internaute = ?");
+            if ($api->getCodDeRetourApi() === 200) $aSupprimer = true;
             else $messageErreur = $api->getMessaDerreur();
         }
         elseif (isset($_POST['Amodifie'])) {
             $id = intval($_POST["Amodifie"]);
-            $api = new Api();
+            $api = new ApiClient();
             $pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/';
             $estUnMotDepasseValide = preg_match($pattern,$_POST["mdp"]);
             $requeteVerif = "SELECT hashageMDP FROM internaute WHERE courriel=?";
-			$api->get([$_POST["courriel"]],null,$requeteVerif);
-			if($api->getCodDeRetourApi()==CodeDeRetourApi::OK->value){
+			$api->get([$_POST["courriel"]],$requeteVerif);
+			if($api->getCodDeRetourApi()==200){
 				$check=$api->getValeurRetourne();
 				if (is_array($check) && count($check) == 1) {
 					$mdp = $check[0]["hashageMDP"];
@@ -89,8 +89,8 @@
             if(!$estUnMotDepasseValide || $estLeMemeMdp) {
                 $messageErreur = "mot de passe au format incorrecte";
                 $veutModifier = true;
-                $api->get(array($id), null, "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
-                if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) {
+                $api->get(array($id),  "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
+                if ($api->getCodDeRetourApi() === 200) {
                 $data = $api->getValeurRetourne();
                     if (isset($data[0])) {
                         $nom = $data[0]['nom_internaute'];
@@ -105,11 +105,11 @@
             }
             else{    
                 
-                $api->patch(array($_POST['nom'], $_POST['prenom'], $_POST['domicile'], $_POST['courriel'], password_hash($_POST['mdp'],PASSWORD_DEFAULT),$id), null, "UPDATE internaute SET nom_internaute = ?, prenom_internaute = ?, adresse_postale = ?, courriel = ?, hashageMDP = ? WHERE id_internaute = ?");
-                if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) {
+                $api->patch(array($_POST['nom'], $_POST['prenom'], $_POST['domicile'], $_POST['courriel'], password_hash($_POST['mdp'],PASSWORD_DEFAULT),$id),  "UPDATE internaute SET nom_internaute = ?, prenom_internaute = ?, adresse_postale = ?, courriel = ?, hashageMDP = ? WHERE id_internaute = ?");
+                if ($api->getCodDeRetourApi() === 200) {
                     $messageConfirmation = "Les modifications ont été enregistrées";
-                    $api->get(array($id), null, "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
-                    if ($api->getCodDeRetourApi() === CodeDeRetourApi::OK->value) {
+                    $api->get(array($id),  "SELECT nom_internaute,prenom_internaute,adresse_postale,courriel,hashageMDP FROM internaute WHERE id_internaute = ?");
+                    if ($api->getCodDeRetourApi() === 200) {
                     $data = $api->getValeurRetourne();
                         if (isset($data[0])) {
                             $nom = $data[0]['nom_internaute'];
@@ -178,7 +178,7 @@
             <h1>Quelle mauvaise idée de nous quitter</h1>
             <div class="footer-color"></div>
         <?php else: ?> 
-            <?php require $chemin."/src/vue/header.php"; ?>
+            <?php require "/src/vue/header.php"; ?>
             <h1>Information compte</h1>
             <div class="valideCompte"><?php echo $messageConfirmation ?></div>
             <!-- Champs du formulaire -->

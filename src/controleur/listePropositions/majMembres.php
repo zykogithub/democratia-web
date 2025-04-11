@@ -1,7 +1,7 @@
 <<?php
     require_once( "../../../route.php");
-    require_once($chemin."/API/Api.php");
-    require_once($chemin."/API/ActionPossible.php");
+    require_once("/src/utils/ApiClient.php");
+    require_once("/API/ActionPossible.php");
 
     $idGroupe=$_GET["idGroupe"];
     $idInternaute=$_GET["idInternaute"];
@@ -15,18 +15,18 @@
 
     if (isset($_GET['memberIds'])){
         $requete="UPDATE infos_membre SET id_role = ? WHERE id_groupe = ? AND id_internaute = ?";
-        $api = new Api();
+        $api = new ApiClient();
         for($i=0;$i<count($memberIds);$i++){
             if (!in_array($memberIds[$i], $deletedMembers)){
-                $api->patch([$newRoles[$i],$idGroupe,$memberIds[$i]],null,$requete);
+                $api->patch([$newRoles[$i],$idGroupe,$memberIds[$i]],$requete);
             }
         }
     }
     if (isset($_GET['deletedMembers'])) {
         $requete="DELETE FROM infos_membre WHERE id_groupe = ? AND id_internaute = ?";
-        $api = new Api();
+        $api = new ApiClient();
         foreach($deletedMembers as $idMembre){
-            $api->delete([$idGroupe,$idMembre],null,$requete);
+            $api->delete([$idGroupe,$idMembre],$requete);
         }
     }
     header("Location: controleurListePropositions.php?action=gestionMembres&idGroupe=".$idGroupe."&idInternaute=".$idInternaute);

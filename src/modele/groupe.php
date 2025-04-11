@@ -1,6 +1,6 @@
 <?php
     require_once( "../../../route.php");
-    require_once($chemin."/API/Api.php");
+    require_once("/src/utils/ApiClient.php");
 
     class Groupe {
         private int $idGroupe;
@@ -70,8 +70,8 @@
         }
 
         public function thematiques(int $idGroupe){
-            $api = new Api();
-            $api->get([$idGroupe],null,"SELECT id_thematique, nom_thematique, budget_thematique FROM theme_groupe NATURAL JOIN thematique WHERE id_groupe = ?");
+            $api = new ApiClient();
+            $api->get([$idGroupe],"SELECT id_thematique, nom_thematique, budget_thematique FROM theme_groupe NATURAL JOIN thematique WHERE id_groupe = ?");
             $resultat = $api->getValeurRetourne();
             $thematiquesData = $resultat;
             var_dump($resultat);
@@ -87,8 +87,8 @@
         }
 
         public static function getGroupeById(int $idGroupe){
-            $api = new Api();
-            $api->get([$idGroupe],null,"SELECT * FROM groupe G WHERE G.id_groupe = ?");
+            $api = new ApiClient();
+            $api->get([$idGroupe],"SELECT * FROM groupe G WHERE G.id_groupe = ?");
             $resultat = $api->getValeurRetourne();
             $data=$resultat[0];
             $groupe = new Groupe(
@@ -105,8 +105,8 @@
         }
 
         public static function getGroupesUtilisateur(int $idUtilisateur): array {
-            $api = new Api();
-            $api->get([$idUtilisateur],null,"SELECT * FROM groupe G INNER JOIN infos_membre IM ON IM.id_groupe = G.id_groupe WHERE id_internaute = ?");
+            $api = new ApiClient();
+            $api->get([$idUtilisateur],"SELECT * FROM groupe G INNER JOIN infos_membre IM ON IM.id_groupe = G.id_groupe WHERE id_internaute = ?");
             $resultat = $api->getValeurRetourne();
             if (!$resultat) {
                 return [];

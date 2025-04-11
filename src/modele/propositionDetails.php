@@ -1,9 +1,9 @@
 <?php
 require_once '../../../route.php';
-require_once $chemin . "/API/Api.php";
+require_once $chemin . "/src/utils/ApiClient.php";
 
 class Proposition {
-    private Api $api;
+    private ApiClient $api;
     private int $idProposition;
     private string $titre;
     private string $description;
@@ -14,7 +14,7 @@ class Proposition {
     private int $idGroupe;
 
     public function __construct(
-        Api $api,
+        ApiClient $api,
         int $idProposition = 0,
     ) {
         $this->api = $api;
@@ -51,7 +51,7 @@ class Proposition {
 
     private function fetchGroupeId(): int {
         $query = "SELECT id_groupe FROM proposition WHERE id_proposition = ?";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         $result = $this->api->getValeurRetourne();
 
         if (!$result || !isset($result[0]['id_groupe'])) {
@@ -69,7 +69,7 @@ class Proposition {
             INNER JOIN thematique t ON p.id_thematique = t.id_thematique
             WHERE p.id_groupe = ?
         ";
-        $this->api->get([$idGroup], null, $query);
+        $this->api->get([$idGroup],  $query);
         $resultat = $this->api->getValeurRetourne();
 
         if (!$resultat) {
@@ -80,13 +80,7 @@ class Proposition {
         foreach ($resultat as $data) {
             $propositions[] = new Proposition(
                 $this->api,
-                (int)$data['id_proposition'],
-                $data['titre_proposition'] ?? "",
-                $data['description_proposition'] ?? "",
-                $data['date_publication'] ?? "",
-                (float)$data['budget'],
-                (int)$data['nb_signalement'],
-                $data['nom_thematique'] ?? ""
+                (int)$data['id_proposition']
             );
         }
 
@@ -95,7 +89,7 @@ class Proposition {
 
     public function getProposition($idProposition){
         $query = "SELECT * FROM proposition WHERE id_proposition = ?";
-        $this->api->get([$idProposition], null, $query);
+        $this->api->get([$idProposition],  $query);
         $resultat = $this->api->getValeurRetourne();
         return $resultat[0];
     }
@@ -113,7 +107,7 @@ class Proposition {
             INNER JOIN thematique t ON p.id_thematique = t.id_thematique
             WHERE p.id_proposition = ?
         ";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         return $this->api->getValeurRetourne()[0] ?? [];
     }
 
@@ -123,7 +117,7 @@ class Proposition {
             FROM demande_vote
             WHERE id_proposition = ?
         ";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         return (int)$this->api->getValeurRetourne()[0]['nombre_demandes_vote'] ?? 0;
     }
 
@@ -133,7 +127,7 @@ class Proposition {
             FROM reaction_proposition
             WHERE id_proposition = ? AND id_reaction = 1
         ";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         return (int)$this->api->getValeurRetourne()[0]['nombre_likes'] ?? 0;
     }
 
@@ -143,7 +137,7 @@ class Proposition {
             FROM reaction_proposition
             WHERE id_proposition = ? AND id_reaction = 2
         ";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         return (int)$this->api->getValeurRetourne()[0]['nombre_dislikes'] ?? 0;
     }
 
@@ -153,7 +147,7 @@ class Proposition {
             FROM reaction_proposition
             WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
         ";
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryCheck);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $queryCheck);
         $result = $this->api->getValeurRetourne();
 
         if ($result && isset($result[0]['id_reaction']) && $result[0]['id_reaction'] == 1) {
@@ -161,13 +155,13 @@ class Proposition {
                 DELETE FROM reaction_proposition
                 WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
             ";
-            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryDelete);
+            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe],  $queryDelete);
         } else {
             $queryInsert = "
                 INSERT INTO reaction_proposition (id_proposition, id_internaute, id_groupe, id_reaction)
                 VALUES (?, ?, ?, 1)
             ";
-            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryInsert);
+            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe],  $queryInsert);
         }
     }
 
@@ -177,7 +171,7 @@ class Proposition {
             FROM reaction_proposition
             WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
         ";
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryCheck);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $queryCheck);
         $result = $this->api->getValeurRetourne();
 
         if ($result && isset($result[0]['id_reaction']) && $result[0]['id_reaction'] == 2) {
@@ -185,13 +179,13 @@ class Proposition {
                 DELETE FROM reaction_proposition
                 WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
             ";
-            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryDelete);
+            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe],  $queryDelete);
         } else {
             $queryInsert = "
                 INSERT INTO reaction_proposition (id_proposition, id_internaute, id_groupe, id_reaction)
                 VALUES (?, ?, ?, 2)
             ";
-            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryInsert);
+            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe],  $queryInsert);
         }
     }
 
@@ -201,7 +195,7 @@ class Proposition {
             FROM demande_vote
             WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
         ";
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryCheck);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $queryCheck);
         $result = $this->api->getValeurRetourne();
 
         if ($result && isset($result[0]['id_proposition'])) {
@@ -209,13 +203,13 @@ class Proposition {
                 DELETE FROM demande_vote
                 WHERE id_proposition = ? AND id_internaute = ? AND id_groupe = ?
             ";
-            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryDelete);
+            $this->api->delete([$this->idProposition, $idInternaute, $this->idGroupe],  $queryDelete);
         } else {
             $queryInsert = "
                 INSERT INTO demande_vote (id_proposition, id_internaute, id_groupe)
                 VALUES (?, ?, ?)
             ";
-            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe], null, $queryInsert);
+            $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe],  $queryInsert);
         }
     }
 
@@ -227,7 +221,7 @@ class Proposition {
         ";
     
         // Exécuter la requête et récupérer le résultat
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $query);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $query);
         $result = $this->api->getValeurRetourne();
         return reset($result)['count'] > 0;
     }
@@ -240,7 +234,7 @@ class Proposition {
         ";
     
         // Exécuter la requête et récupérer le résultat
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $query);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $query);
         $result = $this->api->getValeurRetourne();
         return reset($result)['count'] > 0;
     }
@@ -253,14 +247,14 @@ class Proposition {
         ";
     
         // Exécuter la requête et récupérer le résultat
-        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe], null, $query);
+        $this->api->get([$this->idProposition, $idInternaute, $this->idGroupe],  $query);
         $result = $this->api->getValeurRetourne();
         return reset($result)['count'] > 0;
     } 
 
     public function signalerProposition(int $idInternaute, string $contenuMessage): void {
         $queryUpdate = "UPDATE proposition SET nb_signalement = nb_signalement + 1 WHERE id_proposition = ?;";
-        $this->api->patch([$this->idProposition], null, $queryUpdate);
+        $this->api->patch([$this->idProposition],  $queryUpdate);
     }
 
     public function ajouterCommentaire(int $idInternaute, $commentaire): void {
@@ -268,7 +262,7 @@ class Proposition {
             INSERT INTO commentaire (id_proposition, id_internaute, id_groupe, contenu_message, horodatage)
             VALUES (?, ?, ?, ?, NOW())
         ";
-        $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe, $commentaire], null, $queryInsert);
+        $this->api->post([$this->idProposition, $idInternaute, $this->idGroupe, $commentaire],  $queryInsert);
     }
     
     
@@ -281,7 +275,7 @@ class Proposition {
                 WHERE c.id_proposition = ?
                 ORDER BY c.horodatage ASC
             ";
-            $this->api->get([$this->idProposition], null, $query);
+            $this->api->get([$this->idProposition],  $query);
             
             $result = $this->api->getValeurRetourne();
             
@@ -301,7 +295,7 @@ class Proposition {
             SELECT count(*) AS count FROM vote WHERE id_proposition = ? AND date_fin_vote < NOW()
         ";
     
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         $result = $this->api->getValeurRetourne();
         return $result[0]['count'] > 0;
     }
@@ -313,7 +307,7 @@ class Proposition {
             WHERE id_proposition = ? AND date_fin_discuss < NOW()
         ";
     
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         $result = $this->api->getValeurRetourne();
         return reset($result)['count'] > 0;
     }
@@ -329,7 +323,7 @@ class Proposition {
             LEFT JOIN internaute i ON vm.id_internaute = i.id_internaute
             WHERE p.id_proposition = ?
         ";
-        $this->api->get([$this->idProposition], null, $query);
+        $this->api->get([$this->idProposition],  $query);
         $result = $this->api->getValeurRetourne();
         return $result;
     }
@@ -341,7 +335,7 @@ class Proposition {
                       NATURAL JOIN type_scrutin
                       NATURAL JOIN choix
                       WHERE id_proposition = ?";
-            $this->api->get([$this->idProposition], null, $query);
+            $this->api->get([$this->idProposition],  $query);
             $result = $this->api->getValeurRetourne();
     
             if (empty($result)) {
@@ -362,7 +356,7 @@ class Proposition {
                       WHERE id_proposition = ? AND id_internaute = ?";
             
             // Exécuter la requête
-            $this->api->get([$this->idProposition, $idInternaute], null, $query);
+            $this->api->get([$this->idProposition, $idInternaute],  $query);
             $result = $this->api->getValeurRetourne();
     
             // Vérifier et retourner le résultat
@@ -382,7 +376,7 @@ class Proposition {
     public function vote(int $idInternaute, int $idChoix): void {
         try {
             $query = "SELECT id_vote FROM vote WHERE id_proposition = ?";
-            $this->api->get([$this->idProposition], null, $query);
+            $this->api->get([$this->idProposition],  $query);
             $result = $this->api->getValeurRetourne();
     
             if (!is_array($result) || empty($result[0]['id_vote'])) {
@@ -392,7 +386,7 @@ class Proposition {
     
             $query = "INSERT INTO vote_membre (id_vote, id_choix, id_groupe, id_internaute)
                       VALUES (?, ?, ?, ?)";
-            $this->api->post([$idVote, $idChoix, $this->idGroupe, $idInternaute], null, $query);
+            $this->api->post([$idVote, $idChoix, $this->idGroupe, $idInternaute],  $query);
     
         } catch (Exception $e) {
             error_log("Erreur lors du vote : " . $e->getMessage());
@@ -406,7 +400,7 @@ class Proposition {
                 NATURAL JOIN infos_membre
                 NATURAL JOIN role
                 WHERE id_proposition = ? AND nom_role = ?";
-        $this->api->get([$this->idProposition, "Décideur"], null, $query);
+        $this->api->get([$this->idProposition, "Décideur"],  $query);
         $result = $this->api->getValeurRetourne();
         if ($result==0) {
             return false;
@@ -420,7 +414,7 @@ class Proposition {
     public function getTypeScrutin(): array {
         try {
             $query = "SELECT * FROM type_scrutin";
-            $this->api->get([], null, $query);
+            $this->api->get([],  $query);
             $result = $this->api->getValeurRetourne();
     
             return is_array($result) ? $result : []; // Vérifie si le résultat est un tableau
@@ -445,15 +439,15 @@ class Proposition {
             
             // Suppression des votes existants pour la proposition
             $query = "DELETE FROM vote WHERE id_proposition = ?";
-            $this->api->delete([$this->idProposition], null, $query);
+            $this->api->delete([$this->idProposition],  $query);
     
             // Insertion du nouveau vote
             $queryInsertVote = "INSERT INTO vote (date_fin_vote, id_proposition, id_scrutin) VALUES (?, ?, ?)";
-            $this->api->post([$date_fin_vote_formatted, $this->idProposition, $id_scrutin], null, $queryInsertVote);
+            $this->api->post([$date_fin_vote_formatted, $this->idProposition, $id_scrutin],  $queryInsertVote);
     
             // Récupérer l'ID du vote inséré
             $queryGetVoteId = "SELECT id_vote FROM vote WHERE id_proposition = ?";
-            $this->api->get([$this->idProposition], null, $queryGetVoteId);
+            $this->api->get([$this->idProposition],  $queryGetVoteId);
             $voteIdResult = $this->api->getValeurRetourne();
     
     
@@ -462,22 +456,22 @@ class Proposition {
 
             // Mettre `date_fin_discuss` à NOW() - 1 jour dans la table `proposition`
             $queryEndDiscussion = "UPDATE proposition SET date_fin_discuss = DATE_SUB(NOW(), INTERVAL 1 DAY) WHERE id_proposition = ?";
-            $this->api->patch([$this->idProposition], null, $queryEndDiscussion);
+            $this->api->patch([$this->idProposition],  $queryEndDiscussion);
 
 
             $query = "DELETE FROM choix WHERE id_vote = ?";
-            $this->api->delete([$this->idProposition], null, $query);
+            $this->api->delete([$this->idProposition],  $query);
 
             $queryInsertChoix = "INSERT INTO choix (id_vote, id_choix, libelle_choix) VALUES (?, ?, ?)";
             $i = 1; // Initialisation de l'index pour id_choix
             foreach ($choixs as $choix) {
-                $this->api->post([$idVote, $i, trim($choix)], null, $queryInsertChoix);
+                $this->api->post([$idVote, $i, trim($choix)],  $queryInsertChoix);
                 $i++; // Incrémentation de l'index après chaque insertion
             }
             
 
             $query = "SELECT * FROM choix  WHERE id_vote = ?";
-            $this->api->get([$idVote], null, $query);
+            $this->api->get([$idVote],  $query);
             $result = $this->api->getValeurRetourne();;
 
             return true; // Succès
@@ -491,11 +485,11 @@ class Proposition {
 
     public function signalerCommentaire($idCommentaire, $contenu_message, $idInternaute) {
         $queryUpdate = "UPDATE commentaire SET nb_signalement = nb_signalement + 1 WHERE id_commentaire = ?;";
-        $this->api->patch([$idCommentaire], null, $queryUpdate);
+        $this->api->patch([$idCommentaire],  $queryUpdate);
     }
     public function getCommentaire($idCommentaire) {
         $query = "SELECT * FROM commentaire WHERE id_commentaire = ?";
-        $this->api->get([$idCommentaire], null, $query);
+        $this->api->get([$idCommentaire],  $query);
         return $this->api->getValeurRetourne();
     }
 

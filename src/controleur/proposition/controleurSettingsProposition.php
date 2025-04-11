@@ -1,7 +1,7 @@
 <?php
 // Inclusion des modèles
 require_once '../../modele/propositionDetails.php';
-require_once '../../../API/Api.php';
+require_once '../../../src/utils/ApiClient.php';
 
 // Variables dynamiques
 $page = "controleurSettingsProposition.php";
@@ -12,7 +12,7 @@ $idCommentaire = $_GET['idCommentaire'] ?? $_POST['idCommentaire'] ?? null;
 $contenu_message = $_GET['contenu_message'] ?? $_POST['contenu_message'] ?? '';
 
 // Initialisation des objets
-$api = new Api();
+$api = new ApiClient();
 $proposition = new Proposition($api, (int)$idProposition);
 
 switch ($action) {

@@ -11,12 +11,12 @@
     </head>
     <body>";
         $previousPage="controleurListeGroupes.php?idInternaute=".$idInternaute;
-        require_once($chemin."/src/vue/header.php");
+        require_once("/src/vue/header.php");
         echo "<main>
             <h1 class='title'>
                 Création de groupe
             </h1>";
-            require_once($chemin."/src/vue/espaceUtilisateur/newGroupe/formulaireGroupe.php");
+            require_once("/src/vue/espaceUtilisateur/newGroupe/formulaireGroupe.php");
         echo "</main>
     </body>
     </html>";

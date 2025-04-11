@@ -1,7 +1,7 @@
 <?php
 require_once ('../../../route.php');
-require_once $chemin."/API/Api.php";
-require_once $chemin."/src/modele/groupe.php";
+require_once "/src/utils/ApiClient.php";
+require_once "/src/modele/groupe.php";
 
 class Proposition {
     private int $idProposition;
@@ -60,9 +60,9 @@ class Proposition {
     }
 
 	public static function getAllPropositions(int $idGroupe): array {
-		$api = new Api();
+		$api = new ApiClient();
 		$query = "SELECT * FROM proposition NATURAL JOIN vote NATURAL JOIN thematique WHERE id_groupe = ? ORDER BY date_publication DESC";
-		$api->get([$idGroupe], null, $query);
+		$api->get([$idGroupe],  $query);
 		$resultat = $api->getValeurRetourne();
 		if (!$resultat) {
 			return [];
@@ -89,7 +89,7 @@ class Proposition {
 
     public static function afficherPropositionsUtilisateur(Groupe $groupe) {
         $propositions = self::getAllPropositions($groupe->get("idGroupe"));
-		$api = new Api();
+		$api = new ApiClient();
 
         if (count($propositions)<1){
             echo "Aucune proposition";

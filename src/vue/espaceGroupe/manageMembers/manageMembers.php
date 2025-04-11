@@ -11,7 +11,7 @@
     </head>
     <body>";
         $previousPage="controleurListePropositions.php?idInternaute=".$idInternaute."&idGroupe=".$idGroupe;
-        require_once($chemin."/src/vue/header.php");
+        require_once("/src/vue/header.php");
         $utilisateur = Internaute::getInternauteById($idGroupe,$idInternaute);
         $groupe = Groupe::getGroupeById($idGroupe);
         echo "<main>
@@ -19,7 +19,7 @@
                 ".$groupe->get("nomGroupe")."</br>Gestion des membres
             </h1>";
             if($utilisateur->get("role")=="Administrateur"){
-                require_once($chemin."/src/vue/espaceGroupe/manageMembers/containerAjoutMembres.php");
+                require_once("/src/vue/espaceGroupe/manageMembers/containerAjoutMembres.php");
             }
             Internaute::afficherMembresGroupe($idGroupe,$utilisateur->get("role"));
         echo "</main>

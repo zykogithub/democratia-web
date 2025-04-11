@@ -1,7 +1,7 @@
 <?php
 // Inclusion des modèles
 require_once '../../modele/propositionDetails.php';
-require_once '../../../API/Api.php';
+require_once '../../../src/utils/ApiClient.php';
 
 // Variables dynamiques
 $page = "controleurProposition.php";
@@ -11,7 +11,7 @@ $action = $_GET['action'] ?? $_POST['action'] ?? null;
 
 
 // Initialisation de l'API et de l'objet Proposition
-$api = new Api();
+$api = new ApiClient();
 
 $proposition = new Proposition($api, (int)$idProposition);
 

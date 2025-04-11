@@ -12,7 +12,7 @@
     <body>";
         require_once( "../../../route.php");
         $previousPage="../listeGroupes/controleurListeGroupes.php?idInternaute=".$idInternaute;
-        require_once($chemin."/src/vue/header.php");
+        require_once("/src/vue/header.php");
         $internaute = Internaute::getInternauteById($_GET["idGroupe"],$_GET["idInternaute"]);
         $groupe = Groupe::getGroupeById($_GET["idGroupe"]);
         echo "<main>";

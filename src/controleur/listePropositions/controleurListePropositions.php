@@ -7,13 +7,13 @@
     if($internautePresent && $groupePresent && $actionPresnte){
         $idInternaute=$_GET["idInternaute"];
         $idGroupe=$_GET["idGroupe"];
-        require_once($chemin."/src/modele/groupe.php");
+        require_once("/src/modele/groupe.php");
         switch($_GET["action"]){
             case "creerProposition":
                 require_once("../../vue/espaceGroupe/newProposition/newProposition.php");
                 break;
             case "gestionMembres":
-                require_once($chemin."/src/modele/Internaute.php");
+                require_once("/src/modele/Internaute.php");
                 require_once("../../vue/espaceGroupe/manageMembers/manageMembers.php");
                 break;
             case "optionsRole":
@@ -26,9 +26,9 @@
     }else if($internautePresent && $groupePresent){
         $idInternaute=$_GET["idInternaute"];
         $idGroupe=$_GET["idGroupe"];
-        require_once($chemin."/src/modele/proposition.php");
-        require_once($chemin."/src/modele/groupe.php");
-        require_once($chemin."/src/modele/Internaute.php");
+        require_once("/src/modele/proposition.php");
+        require_once("/src/modele/groupe.php");
+        require_once("/src/modele/Internaute.php");
         require_once("../../vue/espaceGroupe/listPropositions/listPropositions.php");
     }else{
         header("Location: ../../vue/connexion/");

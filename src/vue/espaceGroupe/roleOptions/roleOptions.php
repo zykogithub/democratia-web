@@ -11,7 +11,7 @@
     </head>
     <body>";
         $previousPage="controleurListePropositions.php?idInternaute=".$idInternaute."&idGroupe=".$idGroupe;
-        require_once($chemin."/src/vue/header.php");
+        require_once("/src/vue/header.php");
         $internaute=Internaute::getInternauteById($idGroupe,$idInternaute);
         $groupe=Groupe::getGroupeById($idGroupe);
         echo "<main>
@@ -21,12 +21,12 @@
             "</h1>";
             $roleInternaute=$internaute->get("role");
             if($roleInternaute=="Administrateur"){
-                require_once($chemin."/src/vue/espaceGroupe/roleOptions/deleteGroupeButton.php");
+                require_once("/src/vue/espaceGroupe/roleOptions/deleteGroupeButton.php");
             }else{
                 if($roleInternaute== "Modérateur"){
-                    require_once($chemin."/src/vue/espaceGroupe/roleOptions/deletePropositionsBloc.php");
+                    require_once("/src/vue/espaceGroupe/roleOptions/deletePropositionsBloc.php");
                 }
-                require_once($chemin."/src/vue/espaceGroupe/roleOptions/leaveGroupeButton.php");
+                require_once("/src/vue/espaceGroupe/roleOptions/leaveGroupeButton.php");
             }
         echo "</main>
     </body>

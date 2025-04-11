@@ -12,9 +12,9 @@
     <body>";
         require_once( "../../../route.php");
         $previousPage="../listeGroupes/listeGroupes.php?idInternaute=".$_GET["idInternaute"];
-        require_once($chemin."/src/vue/header.php");
-        require_once($chemin."/src/modele/proposition.php");
-        require_once($chemin."/src/modele/groupe.php");
+        require_once("/src/vue/header.php");
+        require_once("/src/modele/proposition.php");
+        require_once("/src/modele/groupe.php");
         $groupe = Groupe::getGroupeById($_GET["idGroupe"]);
         echo "<main>";
             $groupe->page();

@@ -15,8 +15,8 @@
     $estEnregistre = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         include "../../../route.php";
-        require_once($chemin."/API/Api.php");
-        $api = new Api();
+        require_once("/src/utils/ApiClient.php");
+        $api = new ApiClient();
         $tousLesChampsRemplis = isset($_POST["courriel"],$_POST["mdp"],$_POST['prenom'],$_POST["nom"],$_POST["domicile"]);
         if($tousLesChampsRemplis) {
            $pattern = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/';
@@ -24,8 +24,8 @@
            if(!$estUnMotDepasseValide) $messageErreur = "mot de passe au format incorrecte";
            else{
               $hashMdp = password_hash($_POST["mdp"], PASSWORD_DEFAULT); 
-              $api->post([$_POST['nom'], $_POST['prenom'], $_POST['domicile'], $_POST['courriel'], $hashMdp], null, "INSERT INTO internaute (nom_internaute ,prenom_internaute ,adresse_postale,courriel,hashageMDP) VALUES (?,?,?,?,?)");
-              if ($api->getCodDeRetourApi()===CodeDeRetourApi::OK->value) $estEnregistre = true;
+              $api->post([$_POST['nom'], $_POST['prenom'], $_POST['domicile'], $_POST['courriel'], $hashMdp],  "INSERT INTO internaute (nom_internaute ,prenom_internaute ,adresse_postale,courriel,hashageMDP) VALUES (?,?,?,?,?)");
+              if ($api->getCodDeRetourApi()===200) $estEnregistre = true;
               else $messageErreur = $api->getMessaDerreur();
            }
           
