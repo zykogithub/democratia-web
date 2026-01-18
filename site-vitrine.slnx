@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="site-vitrine.client/site-vitrine.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="site-vitrine.Server/site-vitrine.Server.csproj" />
+</Solution>
